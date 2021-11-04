@@ -21,12 +21,12 @@ jobs:
         msystem: MINGW64
         update: true
         install: git mingw-w64-x86_64-toolchain
-    - run: msys2do pacman --noconfirm -S -noconfirm --noprogressbar
-    - run: msys2do pacman --noconfirm -U mingw-w64-*-any.pkg.tar.xz
+    - run: pacman --noconfirm -S -noconfirm --noprogressbar
+    - run: pacman --noconfirm -U mingw-w64-*-any.pkg.tar.xz
     - run: |
         set MSYSTEM=MINGW32
-        msys2do make -j
-        msys2do make install
+        make -j
+        make install
         bin/bossac --help
     - uses: actions/upload-artifact@v2
       if: always()
