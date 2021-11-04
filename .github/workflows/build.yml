@@ -6,47 +6,6 @@ env:
   PIPENV_ACTIVE: 1
 
 jobs:
-  linux:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install libwxgtk3.0-dev libreadline-dev -y
-    - name: Build
-      run: |
-        make -j
-        make install
-        bin/bossac --help
-    - uses: actions/upload-artifact@v1
-      if: always()
-      with:
-        name: linux
-        path: bin
-
-  macos:
-    runs-on: macOS-latest
-    strategy:
-      fail-fast: false
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: |
-        brew update
-        brew install wxmac
-    - name: Build
-      run: |
-        make -j
-        make install
-        bin/bossac --help
-    - uses: actions/upload-artifact@v1
-      if: always()
-      with:
-        name: macos
-        path: bin
 
   windows:
     runs-on: windows-latest
@@ -54,9 +13,6 @@ jobs:
       fail-fast: false
     steps:
     - uses: actions/checkout@v2
-    - uses: numworks/setup-msys2@v1
-      with:
-        msystem: MSYS32
     - run: msys2do pacman --noconfirm -S -noconfirm --noprogressbar
     - run: msys2do pacman --noconfirm -U mingw-w64-*-any.pkg.tar.xz
     - run: |
