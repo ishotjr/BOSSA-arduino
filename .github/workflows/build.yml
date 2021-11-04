@@ -20,7 +20,7 @@ jobs:
         msys2do make -j
         msys2do make install
         bin/bossac --help
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v2
       if: always()
       with:
         name: windows
