@@ -9,10 +9,18 @@ jobs:
 
   windows:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
     strategy:
       fail-fast: false
     steps:
     - uses: actions/checkout@v2
+    - uses: msys2/setup-msys2@v2
+      with:
+        msystem: MINGW64
+        update: true
+        install: git mingw-w64-x86_64-toolchain
     - run: msys2do pacman --noconfirm -S -noconfirm --noprogressbar
     - run: msys2do pacman --noconfirm -U mingw-w64-*-any.pkg.tar.xz
     - run: |
