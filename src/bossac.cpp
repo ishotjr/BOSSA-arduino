@@ -356,134 +356,135 @@ main(int argc, char* argv[])
 
     try
     {
-        Samba samba;
-        PortFactory portFactory;
+        printf("TODO: restore this code!!!");
+//         Samba samba;
+//         PortFactory portFactory;
 
-        if (config.debug)
-            samba.setDebug(true);
+//         if (config.debug)
+//             samba.setDebug(true);
 
-        if (!config.port)
-            config.portArg = portFactory.def();
+//         if (!config.port)
+//             config.portArg = portFactory.def();
 
-        if (config.arduinoErase)
-        {
-            SerialPort::Ptr port;
-            port = portFactory.create(config.portArg, config.usbPortArg != 0);
+//         if (config.arduinoErase)
+//         {
+//             SerialPort::Ptr port;
+//             port = portFactory.create(config.portArg, config.usbPortArg != 0);
 
-            if(!port->open(1200))
-            {
-                fprintf(stderr, "Failed to open port at 1200bps\n");
-                return 1;
-            }
+//             if(!port->open(1200))
+//             {
+//                 fprintf(stderr, "Failed to open port at 1200bps\n");
+//                 return 1;
+//             }
 
-            port->setRTS(true);
-            port->setDTR(false);
-            port->close();
-        }
+//             port->setRTS(true);
+//             port->setDTR(false);
+//             port->close();
+//         }
 
-        if (config.portArg.empty())
-        {
-            fprintf(stderr, "No serial ports available\n");
-            return 1;
-        }
+//         if (config.portArg.empty())
+//         {
+//             fprintf(stderr, "No serial ports available\n");
+//             return 1;
+//         }
 
-        bool res;
-        if (config.usbPort)
-            res = samba.connect(portFactory.create(config.portArg, config.usbPortArg != 0));
-        else
-            res = samba.connect(portFactory.create(config.portArg));
-        if (!res)
-        {
-            fprintf(stderr, "No device found on %s\n", config.portArg.c_str());
-            return 1;
-        }
+//         bool res;
+//         if (config.usbPort)
+//             res = samba.connect(portFactory.create(config.portArg, config.usbPortArg != 0));
+//         else
+//             res = samba.connect(portFactory.create(config.portArg));
+//         if (!res)
+//         {
+//             fprintf(stderr, "No device found on %s\n", config.portArg.c_str());
+//             return 1;
+//         }
 
-        Device device(samba);
-        device.create();
+//         Device device(samba);
+//         device.create();
 
-        Device::FlashPtr& flash = device.getFlash();
+//         Device::FlashPtr& flash = device.getFlash();
 
-        BossaObserver observer;
-        Flasher flasher(samba, device, observer);
+//         BossaObserver observer;
+//         Flasher flasher(samba, device, observer);
 
-        if (config.info)
-        {
-            FlasherInfo info;
-            flasher.info(info);
-            info.print();
-        }
+//         if (config.info)
+//         {
+//             FlasherInfo info;
+//             flasher.info(info);
+//             info.print();
+//         }
 
-        if (config.unlock)
-            flasher.lock(config.unlockArg, false);
+//         if (config.unlock)
+//             flasher.lock(config.unlockArg, false);
 
-        if (config.erase)
-        {
-            timer_start();
-            flasher.erase(config.offsetArg);
-            printf("\nDone in %5.3f seconds\n", timer_stop());
-        }
+//         if (config.erase)
+//         {
+//             timer_start();
+//             flasher.erase(config.offsetArg);
+//             printf("\nDone in %5.3f seconds\n", timer_stop());
+//         }
 
-        if (config.write)
-        {
-            timer_start();
-            flasher.write(argv[args], config.offsetArg);
-            printf("\nDone in %5.3f seconds\n", timer_stop());
-        }
+//         if (config.write)
+//         {
+//             timer_start();
+//             flasher.write(argv[args], config.offsetArg);
+//             printf("\nDone in %5.3f seconds\n", timer_stop());
+//         }
 
-        if (config.verify)
-        {
-            uint32_t pageErrors;
-            uint32_t totalErrors;
+//         if (config.verify)
+//         {
+//             uint32_t pageErrors;
+//             uint32_t totalErrors;
 
-            timer_start();
-            if (!flasher.verify(argv[args], pageErrors, totalErrors, config.offsetArg))
-            {
-                printf("\nVerify failed\nPage errors: %d\nByte errors: %d\n",
-                    pageErrors, totalErrors);
-                return 2;
-            }
+//             timer_start();
+//             if (!flasher.verify(argv[args], pageErrors, totalErrors, config.offsetArg))
+//             {
+//                 printf("\nVerify failed\nPage errors: %d\nByte errors: %d\n",
+//                     pageErrors, totalErrors);
+//                 return 2;
+//             }
 
-            printf("\nVerify successful\nDone in %5.3f seconds\n", timer_stop());
-        }
+//             printf("\nVerify successful\nDone in %5.3f seconds\n", timer_stop());
+//         }
 
-        if (config.read)
-        {
-            timer_start();
-            flasher.read(argv[args], config.readArg, config.offsetArg);
-            printf("\nDone in %5.3f seconds\n", timer_stop());
-        }
+//         if (config.read)
+//         {
+//             timer_start();
+//             flasher.read(argv[args], config.readArg, config.offsetArg);
+//             printf("\nDone in %5.3f seconds\n", timer_stop());
+//         }
 
-        if (config.boot)
-        {
-            printf("Set boot flash %s\n", config.bootArg ? "true" : "false");
-            flash->setBootFlash(config.bootArg);
-        }
+//         if (config.boot)
+//         {
+//             printf("Set boot flash %s\n", config.bootArg ? "true" : "false");
+//             flash->setBootFlash(config.bootArg);
+//         }
 
-        if (config.bod)
-        {
-            printf("Set brownout detect %s\n", config.bodArg ? "true" : "false");
-            flash->setBod(config.bodArg);
-        }
+//         if (config.bod)
+//         {
+//             printf("Set brownout detect %s\n", config.bodArg ? "true" : "false");
+//             flash->setBod(config.bodArg);
+//         }
 
-        if (config.bor)
-        {
-            printf("Set brownout reset %s\n", config.borArg ? "true" : "false");
-            flash->setBor(config.borArg);
-        }
+//         if (config.bor)
+//         {
+//             printf("Set brownout reset %s\n", config.borArg ? "true" : "false");
+//             flash->setBor(config.borArg);
+//         }
 
-        if (config.security)
-        {
-            printf("Set security\n");
-            flash->setSecurity();
-        }
+//         if (config.security)
+//         {
+//             printf("Set security\n");
+//             flash->setSecurity();
+//         }
 
-        if (config.lock)
-            flasher.lock(config.lockArg, true);
+//         if (config.lock)
+//             flasher.lock(config.lockArg, true);
 
-        flash->writeOptions();
+//         flash->writeOptions();
 
-        if (config.reset)
-            device.reset();
+//         if (config.reset)
+//             device.reset();
     }
     catch (exception& e)
     {
