@@ -24,9 +24,8 @@ jobs:
     - run: C:\\Windows\\system32\\cmd.exe /D /S /C D:\\a\\_temp\\setup-msys2\\msys2.cmd -c "'pacman' '--noconfirm' '-S' '-noconfirm' '--noprogressbar'"
     - run: C:\\Windows\\system32\\cmd.exe /D /S /C D:\\a\\_temp\\setup-msys2\\msys2.cmd -c "'pacman' '--noconfirm' '-U' 'mingw-w64-*-any.pkg.tar.xz'"
     - run: |
-        set MSYSTEM=MINGW32
-        make -j
-        make install
+        mingw32-make.exe bossac
+        mingw32-make.exe install
         bin/bossac --help
     - uses: actions/upload-artifact@v2
       if: always()
