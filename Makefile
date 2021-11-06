@@ -33,7 +33,7 @@ OS?=$(shell uname -s | cut -c -7)
 #
 # Windows rules
 #
-ifeq ($(OS),MINGW32)
+#ifeq ($(OS),MINGW32)
 # Use wxWindows development branch to work around font scaling issues on Windows
 WXVERSION=3.1
 EXE=.exe
@@ -77,7 +77,7 @@ install64: $(BINDIR)\\bossa-x64-$(VERSION).msi
 .PHONY: install
 install: strip install32 install64
 
-endif
+#endif
 
 #
 # Linux rules
