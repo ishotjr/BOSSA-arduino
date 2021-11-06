@@ -26,8 +26,6 @@ jobs:
     - run: C:\\Windows\\system32\\cmd.exe /D /S /C D:\\a\\_temp\\setup-msys2\\msys2.cmd -c "'pacman' '--noconfirm' '-S' 'mingw-w64-wxWidgets'"    
     - run: |
         mingw32-make.exe bossac -j
-        mingw32-make.exe install
-        bin/bossac --help
     - uses: actions/upload-artifact@v2
       if: always()
       with:
