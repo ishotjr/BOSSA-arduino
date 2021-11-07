@@ -1,4 +1,4 @@
-name: Build Environment
+name: Build Windows CLI programmer
 
 on: [push, pull_request]
 
@@ -26,6 +26,7 @@ jobs:
     - run: C:\\Windows\\system32\\cmd.exe /D /S /C D:\\a\\_temp\\setup-msys2\\msys2.cmd -c "'pacman' '--noconfirm' '-S' 'mingw-w64-wxWidgets'"    
     - run: |
         mingw32-make.exe bossac -j
+        shell uname -s | cut -c -7
     - uses: actions/upload-artifact@v2
       if: always()
       with:
