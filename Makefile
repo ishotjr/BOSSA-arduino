@@ -29,14 +29,13 @@ INSTALLDIR=install
 # Determine OS
 #
 OS?=$(shell uname -s | cut -c -7)
+OS5?=$(shell uname -s | cut -c -5)
 
 #
 # Windows rules
 #
 
-# GHA isn't MINGW32 and we only care about Windows right now, so commenting out ifeq
-ifneq ($(filter $(OS),MINGW32 MINGW64),)
-
+ifeq ($(OS5),MINGW)
 EXE=.exe
 COMMON_CXXFLAGS=-std=c++11
 COMMON_SRCS+=WinSerialPort.cpp WinPortFactory.cpp
