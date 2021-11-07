@@ -33,7 +33,10 @@ OS?=$(shell uname -s | cut -c -7)
 #
 # Windows rules
 #
-ifeq ($(OS),MINGW32)
+
+# GHA isn't MINGW32 and we only care about Windows right now, so commenting out ifeq
+#ifeq ($(OS),MINGW32)
+
 EXE=.exe
 COMMON_CXXFLAGS=-std=c++11
 COMMON_SRCS+=WinSerialPort.cpp WinPortFactory.cpp
@@ -59,7 +62,7 @@ install64: $(BINDIR)\\bossa64-$(VERSION).msi
 .PHONY: install
 install: strip install32 install64
 
-endif
+#endif
 
 #
 # Linux rules
