@@ -1,0 +1,33 @@
+name: Build Environment
+
+on: [push, pull_request]
+
+env:
+  PIPENV_ACTIVE: 1
+
+jobs:
+
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v2
+    - uses: msys2/setup-msys2@v2
+      with:
+        msystem: MINGW64
+        update: true
+        install: git mingw-w64-x86_64-toolchain
+    - run: C:\\Windows\\system32\\cmd.exe /D /S /C D:\\a\\_temp\\setup-msys2\\msys2.cmd -c "'pacman' '--noconfirm' '-S' '-noconfirm' '--noprogressbar'"
+    - run: C:\\Windows\\system32\\cmd.exe /D /S /C D:\\a\\_temp\\setup-msys2\\msys2.cmd -c "'pacman' '--noconfirm' '-U' 'mingw-w64-*-any.pkg.tar.xz'"
+    - run: C:\\Windows\\system32\\cmd.exe /D /S /C D:\\a\\_temp\\setup-msys2\\msys2.cmd -c "'pacman' '--noconfirm' '-S' 'mingw-w64-wxWidgets'"    
+    - run: |
+        mingw32-make.exe bossac -j
+    - uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: windows
+        path: bin
